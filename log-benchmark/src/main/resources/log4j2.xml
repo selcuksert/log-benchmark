@@ -19,7 +19,12 @@
 	</Appenders>
 
 	<Loggers>
-		<Logger name="com.corp.concepts" level="debug"
+		<AsyncLogger name="AsynchLogger" level="debug"
+			additivity="false">
+			<AppenderRef ref="MySQLDatabase" />
+		</AsyncLogger>
+
+		<Logger name="SynchLogger" level="debug"
 			additivity="false">
 			<AppenderRef ref="MySQLDatabase" />
 		</Logger>

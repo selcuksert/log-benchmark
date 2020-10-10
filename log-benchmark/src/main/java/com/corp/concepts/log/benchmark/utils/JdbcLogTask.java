@@ -8,21 +8,25 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.corp.concepts.log.benchmark.JdbcLogBenchmark;
 import com.corp.concepts.log.benchmark.model.Performance;
 
 public class JdbcLogTask implements Callable<Performance> {
 
-	private static final Logger log = LogManager.getLogger(JdbcLogBenchmark.class);
+	private static Logger log;
 
 	AtomicLong counter;
 	int index;
 	int maxAttempt;
 
-	public JdbcLogTask(int index, int maxAttempt) {
+	public JdbcLogTask(int index, int maxAttempt, boolean isAsynch) {
 		counter = new AtomicLong(0);
 		this.index = index;
 		this.maxAttempt = maxAttempt;
+		if (isAsynch) {
+			log = LogManager.getLogger("AsynchLogger");
+		} else {
+			log = LogManager.getLogger("SynchLogger");
+		}
 	}
 
 	@Override
