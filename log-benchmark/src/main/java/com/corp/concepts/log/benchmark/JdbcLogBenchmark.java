@@ -28,6 +28,7 @@ public class JdbcLogBenchmark {
 	private static long totalAttempts = 0;
 	private static long totalTimeElapsed = 0;
 	private static double maxLPS = 0.0;
+	private static boolean isAsync;
 
 	public static void main(String[] args) {
 		String noOfThreadsStr = System.getProperty("NO_OF_THREADS");
@@ -37,7 +38,7 @@ public class JdbcLogBenchmark {
 		String dbUser = System.getProperty("MYSQL_DB_USER");
 		String dbPass = System.getProperty("MYSQL_DB_PASS");
 
-		boolean isAsync = Boolean.valueOf(System.getProperty("ASYNC_LOGGER_ENABLED", "true"));
+		isAsync = Boolean.valueOf(System.getProperty("ASYNC_LOGGER_ENABLED", "true"));
 
 		if (StringUtils.isAnyBlank(noOfThreadsStr, maxAttemptsStr, dbName, dbUser, dbPass)) {
 			throw new IllegalArgumentException("Need system properties to be set: MYSQL_HOST(optional), "
@@ -103,8 +104,10 @@ public class JdbcLogBenchmark {
 	}
 
 	private static void results() {
-		String result = String.format("[%s] > | Attempts: %d\t| Elapsed (secs): %d\t| Max LPS: %.2f", "Result",
-				totalAttempts, totalTimeElapsed, maxLPS);
+		String result = String.format(
+				"[%s-%s] > | Attempts: %d\t| Elapsed (secs): %d\t| Max LPS: %.2f\t| Inserted records in DB: %d",
+				"Result", (isAsync ? "Asynch Logger" : "Synch Logger"), totalAttempts, totalTimeElapsed, maxLPS,
+				DBUtil.getRecordCount());
 
 		System.out.println("\n" + StringUtils.repeat("-", 2 * result.length()));
 		System.out.println(result);
