@@ -5,16 +5,16 @@
 			<PatternLayout
 				pattern="%d{dd-MM-yyyy hh:mm:ss a } %level %c - %m %n" />
 		</Console>
-		<Jdbc name="MySQLDatabase" tableName="LOGS">
+		<Jdbc name="MySQLDatabase" tableName="log">
 			<ConnectionFactory
 				class="com.corp.concepts.log.benchmark.connection.MySQLConnectionFactory"
 				method="getConnection" />
-			<Column name="THREAD" pattern="%t" />
-			<Column name="ENTRY_DATE" isEventTimestamp="true" />
-			<Column name="LOGGER" pattern="%logger" />
-			<Column name="LOG_LEVEL" pattern="%level" />
-			<Column name="MESSAGE" pattern="%m" />
-			<Column name="EXCEPTION" pattern="%throwable " />
+			<Column name="thread" pattern="%t" />
+			<Column name="date" isEventTimestamp="true" />
+			<Column name="logger" pattern="%logger" />
+			<Column name="level" pattern="%level" />
+			<Column name="message" pattern="%m" />
+			<Column name="exception" pattern="%throwable " />
 		</Jdbc>
 	</Appenders>
 

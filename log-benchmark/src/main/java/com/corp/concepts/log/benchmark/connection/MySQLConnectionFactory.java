@@ -9,7 +9,7 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public class MySQLConnectionFactory {
 	// private static final BasicDataSource dataSource = new BasicDataSource();
-	private static HikariDataSource dataSource = new HikariDataSource();
+	private static final HikariDataSource dataSource = new HikariDataSource();
 
 	static {
 		String host = System.getProperty("MYSQL_HOST", "localhost");

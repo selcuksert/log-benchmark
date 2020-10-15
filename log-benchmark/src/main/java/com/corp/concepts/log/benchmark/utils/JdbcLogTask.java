@@ -33,7 +33,12 @@ public class JdbcLogTask implements Callable<Performance> {
 	public Performance call() throws Exception {
 		long startTime = Calendar.getInstance().getTimeInMillis();
 		while (counter.get() < maxAttempt) {
-			log.debug(String.valueOf(counter.incrementAndGet()));
+			long count = counter.incrementAndGet();
+			if (count % 100 == 0) {
+				log.error("Error: ", new Exception(String.format("Test Exception: %d", count)));
+			} else {
+				log.debug(String.format("Counter: %d", count));
+			}
 		}
 		long endTime = Calendar.getInstance().getTimeInMillis();
 

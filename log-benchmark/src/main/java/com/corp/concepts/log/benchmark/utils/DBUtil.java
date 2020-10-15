@@ -14,7 +14,7 @@ public class DBUtil {
 		try {
 			connection = MySQLConnectionFactory.getConnection();
 			Statement stmt = connection.createStatement();
-			stmt.executeUpdate("DELETE FROM LOGS");
+			stmt.executeUpdate("DELETE FROM log");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -25,7 +25,7 @@ public class DBUtil {
 		try {
 			connection = MySQLConnectionFactory.getConnection();
 			Statement stmt = connection.createStatement();
-			stmt.execute("SELECT COUNT(*) AS total FROM LOGS");
+			stmt.execute("SELECT COUNT(*) AS total FROM log");
 
 			ResultSet rs = stmt.getResultSet();
 
